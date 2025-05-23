@@ -1,8 +1,10 @@
+"use client";
+
 import { useAuth } from '../hooks/useAuth';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 export default function Home() {
-  const { user, loading } = useAuth();
+  const { user, loading } = useAuth() || {};
   const router = useRouter();
 
   if (loading) return <p>Cargando...</p>;

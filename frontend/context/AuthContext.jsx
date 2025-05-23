@@ -1,5 +1,7 @@
+"use client";
+
 import { createContext, useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { login as apiLogin, register as apiRegister } from '../utils/auth'; // Asegúrate de que la ruta sea correcta
 
 const AuthContext = createContext();
@@ -33,8 +35,11 @@ export const AuthProvider = ({ children }) => {
   };
 
   const register = async (creds) => {
-    await apiRegister(creds);
-    await login(creds); // Redirige al login después de registrarse
+    const res = await apiRegister(creds);
+    const { access_token } = res;
+    localStorage.setItem('token', access_token);
+    setUser({ username: creds.username });
+    router.push('/tasks');
   };
 
   return (

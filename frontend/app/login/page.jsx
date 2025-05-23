@@ -1,17 +1,19 @@
-import { useForm } from 'react-hook-form';
-import { useAuth } from '../hooks/useAuth';
-import { useRouter } from 'next/router';
+"use client";
 
-export default function Register() {
+import { useForm } from 'react-hook-form';
+import { useAuth } from '../../hooks/useAuth';
+import { useRouter } from 'next/navigation';
+
+export default function Login() {
   const { register, handleSubmit, formState: { errors } } = useForm();
-  const { register: registerUser } = useAuth();
+  const { login } = useAuth();
   const router = useRouter();
 
   const onSubmit = async (data) => {
     try {
-      await registerUser(data);
+      await login(data);
     } catch (error) {
-      alert('Error al registrarse');
+      alert('Error al iniciar sesión');
     }
   };
 
@@ -21,7 +23,7 @@ export default function Register() {
         onSubmit={handleSubmit(onSubmit)}
         className="bg-white dark:bg-gray-800 p-6 rounded shadow-md w-full max-w-sm"
       >
-        <h2 className="text-2xl font-bold mb-4 text-center">Registrarse</h2>
+        <h2 className="text-2xl font-bold mb-4 text-center">Iniciar Sesión</h2>
 
         <input
           {...register("username", { required: true })}
@@ -40,14 +42,14 @@ export default function Register() {
 
         <button
           type="submit"
-          className="w-full mt-4 bg-green-500 hover:bg-green-700 text-white py-2 rounded"
+          className="w-full mt-4 bg-blue-500 hover:bg-blue-700 text-white py-2 rounded"
         >
-          Registrarse
+          Entrar
         </button>
 
         <p className="mt-4 text-center">
-          ¿Ya tienes cuenta?{' '}
-          <a href="/login" className="text-blue-500 hover:underline">Inicia Sesión</a>
+          ¿No tienes cuenta?{' '}
+          <a href="/register" className="text-blue-500 hover:underline">Regístrate</a>
         </p>
       </form>
     </div>
