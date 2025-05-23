@@ -6,7 +6,7 @@ class AuthManager:
     @staticmethod
     def register_user(username, password):
         if DataStore.get_user_by_username(username):
-            raise ValueError("Usuario ya existe")
+            raise ValueError("El usuario ya existe")
         user = User(username, password)
         DataStore.add_user(user)
         return {"message": "Usuario creado", "username": username}

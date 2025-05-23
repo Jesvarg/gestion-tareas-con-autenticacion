@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:3000",
+  baseURL: "http://localhost:3000/api",
   headers: {
     "Content-Type": "application/json",
   },
@@ -16,10 +16,4 @@ api.interceptors.request.use(config => {
     return config;
   });
 
-
-export const getTasks = () => api.get("/tasks/").then(res => res.data);
-export const getTaskById = (id) => api.get(`/tasks/${id}`).then(res => res.data);
-export const createTask = (data) => api.post("/tasks/new", data);
-export const updateTask = (id, data) => api.put(`/tasks/${id}`, data);
-export const deleteTask = (id) => api.delete(`/tasks/delete/${id}`);
-export const login = (creds) => api.post("/login", creds);
+export default api;

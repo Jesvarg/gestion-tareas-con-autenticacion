@@ -8,7 +8,7 @@ auth_bp = Blueprint('auth', __name__, url_prefix='/api')
 def register():
     data = request.get_json()
     if not data.get('username') or not data.get('password'):
-        return jsonify({"error": "Faltan datos requeridos"}), 400
+        return jsonify({"error": "Ingresa los datos faltantes"}), 400
     try:
         result = AuthManager.register_user(data['username'], data['password'])
         return jsonify(result), 201
@@ -19,7 +19,7 @@ def register():
 def login():
     data = request.get_json()
     if not data.get('username') or not data.get('password'):
-        return jsonify({"error": "Faltan datos requeridos"}), 400
+        return jsonify({"error": "Ingresa los datos faltantes"}), 400
     try:
         access_token = create_access_token(identity=data['username'])
         return jsonify(access_token=access_token), 200

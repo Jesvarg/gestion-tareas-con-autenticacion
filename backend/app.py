@@ -6,6 +6,7 @@ from flask_jwt_extended import JWTManager
 
 app = Flask(__name__)
 
+
 app.config.from_object('config')
 jwt = JWTManager(app)
 
@@ -14,4 +15,4 @@ app.register_blueprint(auth_bp)
 app.register_blueprint(task_bp)
 
 if __name__ == '__main__':
-    app.run(debug=True) 
+    app.run(debug=True, port=5000) 
