@@ -1,24 +1,28 @@
 "use client";
 
 import { useForm } from 'react-hook-form';
-import { useAuth } from '../../hooks/useAuth';
+import { useAuth } from '../../context/AuthContext';
 import { useRouter } from 'next/navigation';
+import Navbar from '@/components/Navbar';
 
 export default function Login() {
-  const { register, handleSubmit, formState: { errors } } = useForm();
-  const { login } = useAuth();
+  const { register: authRegister, login: authLogin } = useAuth();
   const router = useRouter();
+  const { register, handleSubmit, formState: { errors } } = useForm();
 
   const onSubmit = async (data) => {
     try {
-      await login(data);
+      await authLogin(data);
+      router.push('/tasks');
     } catch (error) {
-      alert('Error al iniciar sesión');
+      console.error('Error al iniciar sesión:', error);
+      alert('Error al iniciar sesión: ' + error.message);
     }
   };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900">
+      <Navbar />
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="bg-white dark:bg-gray-800 p-6 rounded shadow-md w-full max-w-sm"

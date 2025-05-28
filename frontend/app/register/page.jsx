@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from 'react';
-import { useAuth } from '../../hooks/useAuth';
+import { useAuth } from '../../context/AuthContext';
 import { useRouter } from 'next/navigation';
 
 export default function Register() {
@@ -9,9 +9,8 @@ export default function Register() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
-  const { register, loading } = useAuth();
+  const { register: authRegister, loading } = useAuth();
   const router = useRouter();
-
 
   const validatePassword = () => {
     if (password !== confirmPassword) {
@@ -32,15 +31,11 @@ export default function Register() {
     try {
       if (!validatePassword()) return;
 
-      const user = await register({ username, password});
-      if (user) {
-        router.push('/tasks');
-      } else {
-        alert("Credenciales inválidas");
-      }
+      await authRegister({ username, password });
+      router.push('/tasks');
     } catch (error) {
-      console.error("Error al crear el usuario", error);
-      alert("Error al crear el usuario.");
+      console.error('Error al crear el usuario:', error);
+      alert('Error al crear el usuario: ' + error.message);
     }
   };
 

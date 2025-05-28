@@ -1,6 +1,6 @@
 class DataStore:
-    users = {}  # {username: User}
-    tasks = {}  # {user_id: [Task]}
+    users = {} 
+    tasks = {} 
     next_user_id = 1
 
     @classmethod

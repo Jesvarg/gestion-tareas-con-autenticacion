@@ -11,6 +11,7 @@ app = Flask(__name__)
 app.config.from_object('config')
 jwt = JWTManager(app)
 CORS(app)
+
 # Registrar blueprints
 app.register_blueprint(auth_bp)
 app.register_blueprint(task_bp)
