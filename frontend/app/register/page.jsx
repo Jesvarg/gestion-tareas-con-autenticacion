@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { useRouter } from 'next/navigation';
+import Navbar from '@/components/Navbar';
 
 export default function Register() {
   const [username, setUsername] = useState('');
@@ -41,6 +42,7 @@ export default function Register() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
+      <Navbar />
       <div className="w-full max-w-md bg-white shadow-md rounded-lg p-6">
         <div className="text-center mb-6">
           <h1 className="text-2xl font-bold">Crea una cuenta</h1>

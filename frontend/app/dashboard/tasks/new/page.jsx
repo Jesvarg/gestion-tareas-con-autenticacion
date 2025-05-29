@@ -2,9 +2,11 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 export default function NewTaskPage() {
   const router = useRouter();
+  const { user, loading } = useAuth() || {};
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -12,6 +14,14 @@ export default function NewTaskPage() {
     title: '',
     description: '',
   });
+
+  useEffect(() => {
+    if (!loading && !user) {
+      router.push('/login');
+    }
+  }, [loading, user, router]);
+
+  if (loading || !user) return <p className="text-center mt-10">Cargando...</p>;
 
   const validateForm = () => {
     let valid = true;

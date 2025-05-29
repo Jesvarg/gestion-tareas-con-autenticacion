@@ -2,8 +2,8 @@ import Link from 'next/link';
 import { useAuth } from '../context/AuthContext'; 
 
 export default function Navbar() {
-  const user = useAuth(); // Obtener usuario y función de logout desde el contexto
-  const logout = useAuth(); // Función de logout
+  const { user, logout } = useAuth();
+
 
   return (
     <nav className="bg-white dark:bg-gray-800 shadow fixed top-0 left-0 w-full z-50">
